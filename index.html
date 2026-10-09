@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareConnect | Healthcare for Every Village</title>
+<style>
+:root {
+  --green: #087f5b;
+  --light: #e9f8f0;
+  --dark: #153c32;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, "Noto Sans Tamil", sans-serif;
+  color: var(--dark);
+  background: #f6fbf8;
+}
+header {
+  background: var(--white);
+  padding: 16px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 12px #0000000d;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo { font-size: 23px; font-weight: bold; color: var(--green); }
+select, button {
+  font: inherit;
+  padding: 11px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+select { border: 1px solid #c8ddd2; background: white; }
+button { border: none; background: var(--green); color: white; }
+button:hover { opacity: .88; }
+.hero {
+  padding: 65px 7%;
+  background: linear-gradient(120deg, #e4f8ed, #f8fffb);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.hero-content { max-width: 620px; }
+h1 { font-size: clamp(32px, 5vw, 52px); margin: 10px 0; }
+.hero p { font-size: 18px; line-height: 1.7; }
+.illustration { font-size: 100px; text-align: center; }
+.tag {
+  color: var(--green);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+section { padding: 42px 7%; }
+.section-title { text-align: center; margin-bottom: 26px; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.card {
+  background: white;
+  border: 1px solid #e0eee6;
+  border-radius: 18px;
+  padding: 23px;
+  box-shadow: 0 5px 18px #164b3210;
+}
+.card .emoji { font-size: 34px; }
+.card h3 { margin-bottom: 8px; }
+.card p { line-height: 1.6; color: #52685e; }
+.card button { width: 100%; margin-top: 8px; }
+.info { background: var(--light); }
+.notice {
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff8df;
+  color: #634f16;
+  line-height: 1.5;
+}
+#message {
+  display: none;
+  margin: 20px auto;
+  max-width: 700px;
+  background: #dff7e9;
+  border: 1px solid #a8dec0;
+  padding: 18px;
+  border-radius: 12px;
+  line-height: 1.6;
+}
+footer {
+  text-align: center;
+  padding: 28px 15px;
+  background: #153c32;
+  color: white;
+  line-height: 1.8;
+}
+.small { font-size: 13px; opacity: .85; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">💚 CareConnect</div>
+  <label>
+    <span id="language-label">🌐 Language:</span>
+    <select id="language" onchange="changeLanguage()">
+      <option value="en">English</option>
+      <option value="ta">தமிழ்</option>
+      <option value="hi">हिन्दी</option>
+    </select>
+  </label>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="tag" id="tagline">SDG 3 · GOOD HEALTH AND WELL-BEING</div>
+    <h1 id="headline">Healthcare for Every Village</h1>
+    <p id="intro">Connecting rural communities with clinics, health information, and healthcare services — in their own language.</p>
+    <button onclick="showMessage('doctor')" id="hero-button">Explore Healthcare Services →</button>
+  </div>
+  <div class="illustration" aria-hidden="true">🏥💚</div>
+</div>
+
+<div id="message" role="status" aria-live="polite"></div>
+
+<section>
+  <div class="section-title">
+    <h2 id="services-title">Our Healthcare Services</h2>
+    <p id="services-subtitle">Simple, accessible support for your community</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🏥</div>
+      <h3 id="clinic-title">Find a Clinic</h3>
+      <p id="clinic-desc">Explore local healthcare centres and their contact details.</p>
+      <button onclick="showMessage('clinic')" id="clinic-button">Find Clinics</button>
+    </div>
+    <div class="card">
+      <div class="emoji">👩‍⚕️</div>
+      <h3 id="doctor-title">Talk to a Doctor</h3>
+      <p id="doctor-desc">Learn how to request an online consultation with a health professional.</p>
+      <button onclick="showMessage('doctor')" id="doctor-button">Consultation Info</button>
+    </div>
+    <div class="card">
+      <div class="emoji">🩺</div>
+      <h3 id="camp-title">Health Camps</h3>
+      <p id="camp-desc">Discover sample community health camps and awareness events.</p>
+      <button onclick="showMessage('camp')" id="camp-button">View Health Camps</button>
+    </div>
+    <div class="card">
+      <div class="emoji">💊</div>
+      <h3 id="medicine-title">Medicine Information</h3>
+      <p id="medicine-desc">Learn how to check medicine availability with local pharmacies.</p>
+      <button onclick="showMessage('medicine')" id="medicine-button">Check Information</button>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="section-title">
+    <h2 id="impact-title">Healthcare Without Language Barriers</h2>
+    <p id="impact-desc">Designed with rural communities in mind</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🌐</div>
+      <h3 id="multi-title">Multiple Languages</h3>
+      <p id="multi-desc">Switch between Tamil, English, and Hindi for easier access.</p>
+    </div>
+    <div class="card">
+      <div class="emoji">📍</div>
+      <h3 id="local-title">Local Access</h3>
+      <p id="local-desc">Help people discover nearby healthcare resources.</p>
+    </div>
+    <div class="card">
+      <div class="emoji">🤝</div>
+      <h3 id="sdg-title">SDG 3 Support</h3>
+      <p id="sdg-desc">Promoting good health and well-being for everyone.</p>
+    </div>
+  </div>
+  <div class="notice" id="notice">
+    Demo notice: Clinic, camp, and medicine details are examples, not live verified information. This website does not provide medical diagnosis or emergency care.
+  </div>
+</section>
+
+<footer>
+  <strong>💚 CareConnect</strong>
+  <div id="footer-text">Healthcare for Every Village · SDG 3</div>
+  <div class="small" id="footer-note">Student project prototype · Sample information only</div>
+</footer>
+
+<script>
+const translations = {
+en: {
+  "language-label":"🌐 Language:",
+  tagline:"SDG 3 · GOOD HEALTH AND WELL-BEING",
+  headline:"Healthcare for Every Village",
+  intro:"Connecting rural communities with clinics, health information, and healthcare services — in their own language.",
+  "hero-button":"Explore Healthcare Services →",
+  "services-title":"Our Healthcare Services",
+  "services-subtitle":"Simple, accessible support for your community",
+  "clinic-title":"Find a Clinic",
+  "clinic-desc":"Explore local healthcare centres and their contact details.",
+  "clinic-button":"Find Clinics",
+  "doctor-title":"Talk to a Doctor",
+  "doctor-desc":"Learn how to request an online consultation with a health professional.",
+  "doctor-button":"Consultation Info",
+  "camp-title":"Health Camps",
+  "camp-desc":"Discover sample community health camps and awareness events.",
+  "camp-button":"View Health Camps",
+  "medicine-title":"Medicine Information",
+  "medicine-desc":"Learn how to check medicine availability with local pharmacies.",
+  "medicine-button":"Check Information",
+  "impact-title":"Healthcare Without Language Barriers",
+  "impact-desc":"Designed with rural communities in mind",
+  "multi-title":"Multiple Languages",
+  "multi-desc":"Switch between Tamil, English, and Hindi for easier access.",
+  "local-title":"Local Access",
+  "local-desc":"Help people discover nearby healthcare resources.",
+  "sdg-title":"SDG 3 Support",
+  "sdg-desc":"Promoting good health and well-being for everyone.",
+  notice:"Demo notice: Clinic, camp, and medicine details are examples, not live verified information. This website does not provide medical diagnosis or emergency care.",
+  "footer-text":"Healthcare for Every Village · SDG 3",
+  "footer-note":"Student project prototype · Sample information only",
+  messages:{
+    clinic:"🏥 Sample clinic directory: Village Primary Health Centre — Example contact: Please ask your local health worker for verified location and opening hours. This is sample information, not a verified listing.",
+    doctor:"👩‍⚕️ Online consultation demo: In a real service, you could request a consultation with a qualified healthcare professional. No real doctor is connected to this prototype.",
+    camp:"🩺 Sample health camp: Community Health Awareness Day. Date and venue must be confirmed with your local health centre before visiting.",
+    medicine:"💊 Medicine availability demo: Contact a licensed local pharmacy to confirm stock. Always follow a qualified healthcare professional's advice and use medicines as directed."
+  }
+},
+ta: {
+  "language-label":"🌐 மொழி:",
+  tagline:"SDG 3 · நல்ல ஆரோக்கியம் மற்றும் நல்வாழ்வு",
+  headline:"ஒவ்வொரு கிராமத்திற்கும் சுகாதாரம்",
+  intro:"கிராம மக்களை மருத்துவமனைகள் மற்றும் சுகாதாரத் தகவல்களுடன் அவர்களின் மொழியில் இணைக்கிறோம்.",
+  "hero-button":"சுகாதார சேவைகளைப் பார்க்க →",
+  "services-title":"எங்கள் சுகாதார சேவைகள்",
+  "services-subtitle":"உங்கள் சமூகத்திற்கான எளிய சுகாதார உதவி",
+  "clinic-title":"மருத்துவமனையைக் கண்டறியுங்கள்",
+  "clinic-desc":"அருகிலுள்ள சுகாதார மையங்கள் பற்றிய தகவல்களை அறியுங்கள்.",
+  "clinic-button":"மருத்துவமனைகள்",
+  "doctor-title":"மருத்துவரை அணுகுங்கள்",
+  "doctor-desc":"ஆன்லைன் மருத்துவ ஆலோசனையைப் பெறுவது பற்றி அறியுங்கள்.",
+  "doctor-button":"ஆலோசனை விவரங்கள்",
+  "camp-title":"சுகாதார முகாம்கள்",
+  "camp-desc":"சமூக சுகாதார முகாம்கள் மற்றும் விழிப்புணர்வு நிகழ்வுகளைப் பற்றி அறியுங்கள்.",
+  "camp-button":"முகாம்களைப் பார்க்க",
+  "medicine-title":"மருந்துத் தகவல்கள்",
+  "medicine-desc":"உள்ளூர் மருந்தகங்களில் மருந்துகள் உள்ளனவா என்பதை அறியுங்கள்.",
+  "medicine-button":"விவரங்களைப் பார்க்க",
+  "impact-title":"மொழித் தடையற்ற சுகாதாரம்",
+  "impact-desc":"கிராம மக்களின் தேவைகளைக் கருத்தில் கொண்டு உருவாக்கப்பட்டது",
+  "multi-title":"பல மொழிகள்",
+  "multi-desc":"தமிழ், ஆங்கிலம், இந்தி ஆகிய மொழிகளில் தேர்வு செய்யலாம்.",
+  "local-title":"உள்ளூர் சேவைகள்",
+  "local-desc":"அருகிலுள்ள சுகாதார சேவைகளைக் கண்டறிய உதவுகிறது.",
+  "sdg-title":"SDG 3 ஆதரவு",
+  "sdg-desc":"அனைவருக்கும் நல்ல ஆரோக்கியம் மற்றும் நல்வாழ்வை ஊக்குவிக்கிறது.",
+  notice:"செயல்விளக்கக் குறிப்பு: மருத்துவமனை, முகாம், மருந்துத் தகவல்கள் மாதிரிகள் மட்டுமே; அவை நேரடியாகச் சரிபார்க்கப்பட்ட தகவல்கள் அல்ல. இது மருத்துவ நோயறிதலையோ அவசர சிகிச்சையையோ வழங்காது.",
+  "footer-text":"ஒவ்வொரு கிராமத்திற்கும் சுகாதாரம் · SDG 3",
+  "footer-note":"மாணவர் திட்ட மாதிரி · எடுத்துக்காட்டு தகவல்கள் மட்டுமே",
+  messages:{
+    clinic:"🏥 மாதிரி மருத்துவமனைத் தகவல்: அருகிலுள்ள அரசு ஆரம்ப சுகாதார நிலையத்தின் சரியான முகவரி மற்றும் நேரத்தை உள்ளூர் சுகாதாரப் பணியாளரிடம் உறுதிப்படுத்தவும்.",
+    doctor:"👩‍⚕️ ஆன்லைன் ஆலோசனை மாதிரி: உண்மையான சேவையில் தகுதியான சுகாதார நிபுணரிடம் ஆலோசனை கோரலாம். இந்த மாதிரியில் உண்மையான மருத்துவர் இணைக்கப்படவில்லை.",
+    camp:"🩺 மாதிரி சுகாதார முகாம்: சமூக சுகாதார விழிப்புணர்வு நாள். செல்வதற்கு முன் தேதி மற்றும் இடத்தை உள்ளூர் சுகாதார மையத்தில் உறுதிப்படுத்தவும்.",
+    medicine:"💊 மருந்துத் தகவல் மாதிரி: மருந்து இருப்பை உரிமம் பெற்ற உள்ளூர் மருந்தகத்தில் உறுதிப்படுத்தவும். சுகாதார நிபுணரின் அறிவுரையைப் பின்பற்றவும்."
+  }
+},
+hi: {
+  "language-label":"🌐 भाषा:",
+  tagline:"SDG 3 · अच्छा स्वास्थ्य और खुशहाली",
+  headline:"हर गाँव के लिए स्वास्थ्य सेवा",
+  intro:"ग्रामीण समुदायों को उनकी अपनी भाषा में क्लीनिक और स्वास्थ्य संबंधी जानकारी से जोड़ना।",
+  "hero-button":"स्वास्थ्य सेवाएँ देखें →",
+  "services-title":"हमारी स्वास्थ्य सेवाएँ",
+  "services-subtitle":"आपके समुदाय के लिए सरल स्वास्थ्य सहायता",
+  "clinic-title":"क्लीनिक खोजें",
+  "clinic-desc":"स्थानीय स्वास्थ्य केंद्रों और उनकी संपर्क जानकारी के बारे में जानें।",
+  "clinic-button":"क्लीनिक खोजें",
+  "doctor-title":"डॉक्टर से बात करें",
+  "doctor-desc":"ऑनलाइन स्वास्थ्य परामर्श का अनुरोध करने के बारे में जानें।",
+  "doctor-button":"परामर्श जानकारी",
+  "camp-title":"स्वास्थ्य शिविर",
+  "camp-desc":"सामुदायिक स्वास्थ्य शिविरों और जागरूकता कार्यक्रमों के बारे में जानें।",
+  "camp-button":"शिविर देखें",
+  "medicine-title":"दवाइयों की जानकारी",
+  "medicine-desc":"स्थानीय फार्मेसी में दवाइयों की उपलब्धता जाँचने के बारे में जानें।",
+  "medicine-button":"जानकारी देखें",
+  "impact-title":"भाषा की बाधा के बिना स्वास्थ्य सेवा",
+  "impact-desc":"ग्रामीण समुदायों की ज़रूरतों को ध्यान में रखकर बनाया गया",
+  "multi-title":"कई भाषाएँ",
+  "multi-desc":"आसानी से तमिल, अंग्रेज़ी और हिंदी में बदलें।",
+  "local-title":"स्थानीय सेवाएँ",
+  "local-desc":"आस-पास की स्वास्थ्य सेवाएँ खोजने में मदद करें।",
+  "sdg-title":"SDG 3 का समर्थन",
+  "sdg-desc":"सभी के लिए अच्छे स्वास्थ्य और खुशहाली को बढ़ावा देना।",
+  notice:"डेमो सूचना: क्लीनिक, शिविर और दवाइयों की जानकारी उदाहरण मात्र हैं, सत्यापित लाइव जानकारी नहीं। यह वेबसाइट निदान या आपातकालीन चिकित्सा सेवा नहीं देती।",
+  "footer-text":"हर गाँव के लिए स्वास्थ्य सेवा · SDG 3",
+  "footer-note":"विद्यार्थी परियोजना का नमूना · केवल उदाहरण",
+  messages:{
+    clinic:"🏥 नमूना क्लीनिक निर्देशिका: सही पता और खुलने का समय जानने के लिए अपने स्थानीय स्वास्थ्यकर्मी से संपर्क करें।",
+    doctor:"👩‍⚕️ ऑनलाइन परामर्श डेमो: वास्तविक सेवा में योग्य स्वास्थ्य पेशेवर से परामर्श माँगा जा सकता है। इस प्रोटोटाइप में कोई वास्तविक डॉक्टर जुड़ा नहीं है।",
+    camp:"🩺 नमूना स्वास्थ्य शिविर: सामुदायिक स्वास्थ्य जागरूकता दिवस। जाने से पहले स्थानीय स्वास्थ्य केंद्र से तारीख और स्थान की पुष्टि करें।",
+    medicine:"💊 दवा उपलब्धता डेमो: स्टॉक की पुष्टि किसी लाइसेंस प्राप्त स्थानीय फार्मेसी से करें। स्वास्थ्य पेशेवर की सलाह का पालन करें।"
+  }
+}
+};
+
+function changeLanguage() {
+  const lang = document.getElementById("language").value;
+  const t = translations[lang];
+  document.documentElement.lang = lang;
+  for (const key in t) {
+    if (key === "messages") continue;
+    const el = document.getElementById(key);
+    if (el) el.textContent = t[key];
+  }
+  document.getElementById("message").style.display = "none";
+}
+
+function showMessage(type) {
+  const lang = document.getElementById("language").value;
+  const box = document.getElementById("message");
+  box.textContent = translations[lang].messages[type];
+  box.style.display = "block";
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+</script>
+</body>
+</html>
